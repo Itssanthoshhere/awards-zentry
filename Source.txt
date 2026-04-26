@@ -2,3 +2,6 @@ npm create vite@latest ./
 
 npm install tailwindcss @tailwindcss/vite
 
+npm i react-icons --save
+
+npm install clsx
