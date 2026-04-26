@@ -1,7 +1,11 @@
-import React from "react";
+import Hero from "./components/Hero";
 
 const App = () => {
-  return <div className="text-5xl text-violet-300 font-bold font-robert-medium">App</div>;
+  return (
+    <main className="relative min-h-screen w-screen overflow-x-hidden">
+      <Hero />
+    </main>
+  );
 };
 
 export default App;
