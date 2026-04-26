@@ -36,6 +36,7 @@ body {
   }
 }
 
+/* Theme tokens (Tailwind v4) */
 @theme {
   --font-zentry: "zentry", sans-serif;
   --font-general: "general", sans-serif;
@@ -55,6 +56,14 @@ body {
   --color-yellow-300: #edff66;
 }
 
+@layer components {
+  .special-font b {
+    font-family: var(--font-zentry);
+    font-feature-settings: "ss01" on;
+  }
+}
+
+/* Utilities */
 @layer utilities {
   .absolute-center {
     @apply absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%];
@@ -68,16 +77,31 @@ body {
     clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
   }
 
-  .special-font b {
-    font-family: "Zentry";
-    font-feature-settings: "ss01" on;
-  }
-
   .hero-heading {
     @apply uppercase font-zentry font-black text-5xl sm:right-10 sm:text-7xl md:text-9xl lg:text-[12rem];
   }
+
+  .about-subtext {
+    @apply absolute bottom-[-80dvh] left-1/2 w-full max-w-96 -translate-x-1/2 text-center font-circular-web text-lg md:max-w-[34rem];
+  }
+
+  .about-image {
+    @apply absolute left-1/2 top-0 z-20 h-[60vh] w-96 origin-center -translate-x-1/2 overflow-hidden rounded-3xl md:w-[30vw];
+  }
+
+  .animated-title {
+    @apply flex flex-col gap-1 text-7xl uppercase leading-[.8] text-white sm:px-32 md:text-[6rem];
+  }
+
+  .animated-word {
+    @apply font-zentry font-black opacity-0;
+    transform: translate3d(10px, 51px, -60px) rotateY(60deg) rotateX(-40deg);
+    transform-origin: 50% 50% -150px !important;
+    will-change: opacity, transform;
+  }
 }
 
+/* Loader animation (Uiverse) */
 /* From Uiverse.io by G4b413l */
 /* https://uiverse.io/G4b413l/tidy-walrus-92 */
 .three-body {
@@ -147,6 +171,7 @@ body {
   animation: wobble2 var(--uib-speed) infinite ease-in-out;
 }
 
+/* Animations */
 @keyframes spin78236 {
   0% {
     transform: rotate(0deg);
