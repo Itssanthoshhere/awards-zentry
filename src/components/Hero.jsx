@@ -1,7 +1,12 @@
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/all";
 import { TiLocationArrow } from "react-icons/ti";
 import { useEffect, useRef, useState } from "react";
 
 import Button from "./Button";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
@@ -17,26 +22,81 @@ const Hero = () => {
     setLoadedVideos((prev) => prev + 1);
   };
 
-  // 0 % 3 = 0 + 1 => 1
-  // 1 % 3 = 1 + 1 => 2
-  // 2 % 3 = 2 + 1 => 3
-  // 3 % 3 = 0 + 1 => 1
-  const upcomingVideoIndex = (currentIndex % totalVideos) + 1;
+  useEffect(() => {
+    if (loadedVideos === totalVideos - 1) {
+      setLoading(false);
+    }
+  }, [loadedVideos]);
 
   const handleMiniVdClick = () => {
     setHasClicked(true);
 
-    // setCurrentIndex((prevIndex) => prevIndex + 1);
-    setCurrentIndex(upcomingVideoIndex);
+    setCurrentIndex((prevIndex) => (prevIndex % totalVideos) + 1);
   };
 
-  const getVideoSrc = (index) => `/videos/hero-${index}.mp4`;
+  useGSAP(
+    () => {
+      if (hasClicked) {
+        gsap.set("#next-video", { visibility: "visible" });
+        gsap.to("#next-video", {
+          transformOrigin: "center center",
+          scale: 1,
+          width: "100%",
+          height: "100%",
+          duration: 1,
+          ease: "power1.inOut",
+          onStart: () => nextVdRef.current.play(),
+        });
+        gsap.from("#current-video", {
+          transformOrigin: "center center",
+          scale: 0,
+          duration: 1.5,
+          ease: "power1.inOut",
+        });
+      }
+    },
+    {
+      dependencies: [currentIndex],
+      revertOnUpdate: true,
+    },
+  );
+
+  useGSAP(() => {
+    gsap.set("#video-frame", {
+      clipPath: "polygon(14% 0, 72% 0, 88% 90%, 0 95%)",
+      borderRadius: "0% 0% 40% 10%",
+    });
+    gsap.from("#video-frame", {
+      clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+      borderRadius: "0% 0% 0% 0%",
+      ease: "power1.inOut",
+      scrollTrigger: {
+        trigger: "#video-frame",
+        start: "center center",
+        end: "bottom center",
+        scrub: true,
+      },
+    });
+  });
+
+  const getVideoSrc = (index) => `videos/hero-${index}.mp4`;
 
   return (
-    <div className="relative h-dvh w-screen">
+    <div className="relative h-dvh w-screen overflow-x-hidden">
+      {loading && (
+        <div className="flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50">
+          {/* https://uiverse.io/G4b413l/tidy-walrus-92 */}
+          <div className="three-body">
+            <div className="three-body__dot"></div>
+            <div className="three-body__dot"></div>
+            <div className="three-body__dot"></div>
+          </div>
+        </div>
+      )}
+
       <div
-        className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75"
         id="video-frame"
+        className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75"
       >
         <div>
           <div className="mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg">
