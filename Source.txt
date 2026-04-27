@@ -7,3 +7,5 @@ npm i react-icons --save
 npm install clsx
 
 npm i @gsap/react gsap
+
+npm install react-use
