@@ -258,7 +258,7 @@ Or connect your GitHub repo directly at [vercel.com](https://vercel.com) for aut
 
 ## 🎯 Key Components
 
-### `<Hero />`
+**1. `<Hero />`**
 
 The most complex component. Manages:
 
@@ -275,7 +275,7 @@ const handleMiniVdClick = () => {
 };
 ```
 
-### `<AnimatedTitle title="..." containerClass="..." />`
+**2. `<AnimatedTitle title="..." containerClass="..." />`**
 
 Reusable animated heading. Splits text by `<br />` and word, then animates each word from a 3D rotated position to flat with a stagger.
 
@@ -290,18 +290,18 @@ Reusable animated heading. Splits text by `<br />` and word, then animates each 
 - Supports `<b>` tags for **Zentry font** activation on specific letters
 - Animated via GSAP ScrollTrigger — plays on scroll into view, reverses on scroll out
 
-### `<BentoTilt className="...">` + `<BentoCard src title description isComingSoon />`
+**3. `<BentoTilt className="...">` + `<BentoCard src title description isComingSoon />`**
 
 Two composable components for the features grid:
 
 - `BentoTilt`: Wraps any content with mouse-tracking 3D perspective transform
 - `BentoCard`: Renders video background with overlaid title, description, and optional "coming soon" button with radial gradient cursor effect
 
-### `<Button id title leftIcon rightIcon containerClass />`
+**4. `<Button id title leftIcon rightIcon containerClass />`**
 
 Fully reusable CTA button with skew slide animation on hover. Supports icon slots on both sides.
 
-### `<VideoPreview>` (children)
+**5. `<VideoPreview>` (children)**
 
 Wraps content in a 3D parallax container — parent moves WITH cursor, children move AGAINST cursor, creating perceived depth.
 
