@@ -5,6 +5,7 @@ import { TiLocationArrow } from "react-icons/ti";
 import { useEffect, useRef, useState } from "react";
 
 import Button from "./Button";
+import VideoPreview from "./VideoPreview";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -79,7 +80,7 @@ const Hero = () => {
     });
   });
 
-  const getVideoSrc = (index) => `/videos/hero-${index}.mp4`;
+  const getVideoSrc = (index) => `videos/hero-${index}.mp4`;
 
   return (
     <div className="relative h-dvh w-screen overflow-x-hidden">
@@ -100,20 +101,22 @@ const Hero = () => {
       >
         <div>
           <div className="mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg">
-            <div
-              onClick={handleMiniVdClick}
-              className="origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100"
-            >
-              <video
-                ref={nextVdRef}
-                src={getVideoSrc((currentIndex % totalVideos) + 1)}
-                loop
-                muted
-                id="current-video"
-                className="size-64 origin-center scale-150 object-cover object-center"
-                onLoadedData={handleVideoLoad}
-              />
-            </div>
+            <VideoPreview>
+              <div
+                onClick={handleMiniVdClick}
+                className="origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100"
+              >
+                <video
+                  ref={nextVdRef}
+                  src={getVideoSrc((currentIndex % totalVideos) + 1)}
+                  loop
+                  muted
+                  id="current-video"
+                  className="size-64 origin-center scale-150 object-cover object-center"
+                  onLoadedData={handleVideoLoad}
+                />
+              </div>
+            </VideoPreview>
           </div>
 
           <video
